@@ -7,7 +7,7 @@ version: ""
 output:
   pdf_document:
     latex_engine: xelatex
-    template: "master.tex"
+    template: "latex_template.tex"
     fig_caption: yes
 knit: (function(input, ...) {
     rmarkdown::render(

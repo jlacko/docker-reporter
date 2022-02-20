@@ -67,10 +67,9 @@ RUN tlmgr update --self && \
     tlmgr install framed  && \
     tlmgr install tabu
     
- # install required R packages
- RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2021-09-30')); install.packages(c('markdown'))"
- RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2021-09-30')); install.packages(c('readr', 'dplyr', 'ggplot2', 'knitr',  'kableExtra', 'lubridate', 'extrafont', 'readxl', 'RCzechia', 'DBI', 'RSQLite', 'stringr'))"
- 
- # as final step: add required directories / R code + source markdown + latex templates
- COPY /R/* /home/rstudio/R/
- COPY --chown=rstudio:rstudio /src/* /home/rstudio/src/
+# install required R packages from a static (i.e. known to be valid) CRAN snapshot
+RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2022-01-01')); install.packages(c('markdown'))"
+
+# as final step: add required directories / R code + source markdown + latex templates
+COPY --chown=rstudio:rstudio /R/* /home/rstudio/R/
+COPY --chown=rstudio:rstudio /src/* /home/rstudio/src/
